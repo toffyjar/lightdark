@@ -32,16 +32,16 @@ function colorModeToggle() {
   let lightColors = {};
   let darkColors = {};
   cssVariables.split(",").forEach(function (item) {
-    let darkValue = computed.getPropertyValue(`--color--${item}`);
-    let lightValue = computed.getPropertyValue(`--dark--${item}`);
-    if (darkValue.length) {
-      if (!lightValue.length) lightValue = darkValue;
+    let darkValue = computed.getPropertyValue(`--dark--${item}`);
+    let lightValue = computed.getPropertyValue(`--color--${item}`);
+    if (lightValue.length) {
+      if (!darkValue.length) darkValue = lightValue;
+      lightColors[`--color--${item}`] = lightValue;
       darkColors[`--color--${item}`] = darkValue;
-      lightColors[`--dark--${item}`] = lightValue;
     }
   });
 
-  if (!Object.keys(darkColors).length) {
+  if (!Object.keys(lightColors).length) {
     console.warn("No variables found matching tr-color-vars attribute value");
     return;
   }
